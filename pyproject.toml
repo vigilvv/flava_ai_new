@@ -1,16 +1,25 @@
 [project]
-name = "flava-ai-new"
+name = "flava_ai_new"
 version = "0.1.0"
-description = "Add your description here"
+description = "Flare Virtual Agent"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "fastapi>=0.115.11",
     "google-generativeai>=0.8.4",
+    "nest-asyncio>=1.6.0",
     "pandas>=2.2.3",
     "pydantic-ai>=0.0.37",
     "python-dotenv>=1.0.1",
     "qdrant-client>=1.13.3",
+    "requests>=2.32.3",
     "structlog>=25.2.0",
     "uvicorn>=0.34.0",
 ]
+
+[project.scripts]
+start-backend = "flava_ai_new.main:start"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
