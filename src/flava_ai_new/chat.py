@@ -39,6 +39,7 @@ class ChatRouter:
         qdrant_client: QdrantClient,
         gemini_model: GenerativeModel,
         agent: Agent,
+        consensus_agent: Agent,
         pydantic_deps
     ) -> None:
         """
@@ -54,6 +55,7 @@ class ChatRouter:
         self.qdrant_client = qdrant_client
         self.gemini_model = gemini_model
         self.agent = agent
+        self.consensus_agent = consensus_agent
         self.pydantic_deps = pydantic_deps
         self.logger = logger.bind(router="chat")
         self._setup_routes()
@@ -83,6 +85,44 @@ class ChatRouter:
                 #     return retrieved_docs
 
                 response = self.agent.run_sync(
+                    message.message, deps=message.message)
+
+                logger.debug(response.data)
+
+                # Generate the final answer using retrieved context.
+                # answer = generate_response(gemini_model=self.gemini_model,
+                #                            query=message.message, retrieved_documents=retrieved_docs
+                #                            )
+                # self.logger.info("Response generated", answer=answer)
+                # return {"response": answer}
+
+                self.logger.info("Response generated", answer=response.data)
+                return {"response": response.data}
+
+            except Exception as e:
+                self.logger.exception("Chat processing failed", error=str(e))
+                raise HTTPException(status_code=500, detail=str(e)) from e
+
+        @self._router.post("/consensus")
+        # pyright: ignore [reportUnusedFunction]
+        async def chat_consensus(message: ChatMessage) -> dict[str, str] | None:
+            """
+            Process a chat message through the RAG pipeline.
+            Returns a response containing the query classification and the answer.
+            """
+            try:
+                self.logger.debug("Received chat message for consensus mode",
+                                  message=message.message)
+
+                # @self.agent.tool
+                # def retrieve_blaze_swap_documentation(ctx: RunContext[str]):
+                #     retrieved_docs = semantic_search(self, qdrant_client=self.qdrant_client,
+                #                                      query=ctx.deps, collection_name="blaze-swap", top_k=5
+                #                                      )
+                #     self.logger.info("Documents retrieved for blaze-swap")
+                #     return retrieved_docs
+
+                response = self.consensus_agent.run_sync(
                     message.message, deps=message.message)
 
                 logger.debug(response.data)
