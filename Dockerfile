@@ -1,13 +1,6 @@
-# Stage 1: Build Frontend
-FROM node:18-alpine AS frontend-builder
-WORKDIR /frontend
-COPY chat-ui/ .
-RUN npm install
-RUN npm run build
-
 # Stage 2: Build Backend
 FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS backend-builder
-WORKDIR /flare-ai-rag
+WORKDIR /flava_ai_new
 COPY pyproject.toml README.md ./
 COPY src ./src
 RUN uv venv .venv && \
@@ -27,10 +20,10 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-COPY --from=backend-builder /flare-ai-rag/.venv ./.venv
-COPY --from=backend-builder /flare-ai-rag/src ./src
-COPY --from=backend-builder /flare-ai-rag/pyproject.toml .
-COPY --from=backend-builder /flare-ai-rag/README.md .
+COPY --from=backend-builder /flava_ai_new/.venv ./.venv
+COPY --from=backend-builder /flava_ai_new/src ./src
+COPY --from=backend-builder /flava_ai_new/pyproject.toml .
+COPY --from=backend-builder /flava_ai_new/README.md .
 
 # Download and install Qdrant binary
 RUN wget https://github.com/qdrant/qdrant/releases/download/v1.13.4/qdrant-x86_64-unknown-linux-musl.tar.gz && \
@@ -42,9 +35,6 @@ RUN wget https://github.com/qdrant/qdrant/releases/download/v1.13.4/qdrant-x86_6
 COPY entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
 
-# Copy frontend files
-COPY --from=frontend-builder /frontend/build /usr/share/nginx/html
-
 # Copy nginx configuration
 COPY nginx.conf /etc/nginx/sites-enabled/default
 
@@ -53,6 +43,7 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Allow workload operator to override environment variables
 LABEL "tee.launch_policy.allow_env_override"="GEMINI_API_KEY"
+LABEL "tee.launch_policy.allow_env_override"="OPENAI_API_KEY"
 LABEL "tee.launch_policy.log_redirect"="always"
 
 EXPOSE 80
