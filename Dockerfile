@@ -1,3 +1,10 @@
+# Stage 1: Build Frontend
+FROM node:18-alpine AS frontend-builder
+WORKDIR /frontend
+COPY flava_ai_frontend/ .
+RUN npm install
+RUN npm run build
+
 # Stage 2: Build Backend
 FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS backend-builder
 WORKDIR /flava_ai_new
@@ -34,6 +41,9 @@ RUN wget https://github.com/qdrant/qdrant/releases/download/v1.13.4/qdrant-x86_6
 # Make entrypoint executable
 COPY entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
+
+# Copy frontend files
+COPY --from=frontend-builder /frontend/build /usr/share/nginx/html
 
 # Copy nginx configuration
 COPY nginx.conf /etc/nginx/sites-enabled/default
