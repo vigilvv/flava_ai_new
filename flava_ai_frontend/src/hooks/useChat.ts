@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 
 const STORAGE_KEY = "flavaAI_chatHistory";
 // const BACKEND_ROUTE = import.meta.env.VITE_BACKEND_ROUTE;
-const BACKEND_ROUTE = "http://localhost:8080/api/routes/chat/"; // --> for local
-// const BACKEND_ROUTE = "api/routes/chat/"; // --> for TEE
+// const BACKEND_ROUTE = "http://localhost:8080/api/routes/chat/"; // --> for local
+const BACKEND_ROUTE = "api/routes/chat/"; // --> for TEE
 
 export type Message = {
   role: "user" | "assistant";
