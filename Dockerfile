@@ -43,7 +43,7 @@ COPY entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
 
 # Copy frontend files
-COPY --from=frontend-builder /frontend/build /usr/share/nginx/html
+COPY --from=frontend-builder /frontend/dist /usr/share/nginx/html
 
 # Copy nginx configuration
 COPY nginx.conf /etc/nginx/sites-enabled/default
