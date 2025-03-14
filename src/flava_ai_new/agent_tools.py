@@ -62,7 +62,6 @@ async def get_validator_info():
         "validator_number" - is the number of validator run by "name". When asked how many validators a particular "name" is running, check for the highest number in the array for all the same "name"s. That number + 1, would be the total number of validators that the "name" is running. For example, if "validator_number" is "0" and there is no other entry for the same "name", then they are running only 1 validator.
 
     Add "Agent tool used: get-validator-info" to the end of the message.
-
     """
 
     url = "https://api.flaremetrics.io/v2/network/validators/flare/stakes"

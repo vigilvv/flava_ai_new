@@ -65,6 +65,9 @@ const ChatHeader = ({
             </svg>
           </div>
           <span className={`font-semibold `}>Flava AI</span>
+          <span className="text-sm italic px-2 py-2 rounded text-zinc-300">
+            Secured by TEE
+          </span>
         </div>
         <div className="flex items-center gap-4">
           <button
@@ -72,8 +75,8 @@ const ChatHeader = ({
             className="hover:bg-chatgpt-hover rounded-lg p-2 transition-colors"
           >
             {/* <ChevronRight className="h-4 w-4" /> */}
-            <p className="text-sm bg-gray-300 text-black rounded px-2 py-2">
-              Start Consensus mode
+            <p className="text-xs bg-gray-300 text-black rounded px-2 py-2">
+              Start Agentic Consensus Mode
             </p>
           </button>
         </div>

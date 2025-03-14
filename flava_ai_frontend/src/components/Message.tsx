@@ -18,7 +18,7 @@ const Message = ({ role, content }: MessageProps) => {
 
   // Define a regex to match both possible extracted texts
   const regex =
-    /Agent tool used: (retrieve-flare-network-documentation|get-validator-info|retrieve-blaze-swap-documentation|get_validator_info)/;
+    /Agent tool used: (retrieve-flare-network-documentation|get-validator-info|retrieve-blaze-swap-documentation|get_validator_info|retrieve-rain-dex-documentation|retrieve-spark-dex-documentation)/;
 
   // Extract the matched text if present
   const match = content.match(regex);

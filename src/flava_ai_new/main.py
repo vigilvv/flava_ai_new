@@ -34,10 +34,22 @@ logger = structlog.get_logger(__name__)
 #     qdrant: QdrantClient
 
 
+# EMBEDDING_SAVE_FILES = [
+#     {"file_name": "flare-network_simple_d2.json",
+#         "qdrant_collection_name": "flare-network"},
+#     {"file_name": "blaze-swap_simple_d3.json", "qdrant_collection_name": "blaze-swap"}]
+
+# EMBEDDING_SAVE_FILES = [
+#     {"file_name": "flare-network_simple_d2.json",
+#         "qdrant_collection_name": "flare-network"},
+#     {"file_name": "flare-network_semantic_d2.json",
+#         "qdrant_collection_name": "flare-network_semantic"},
+#     {"file_name": "blaze-swap_simple_d3.json", "qdrant_collection_name": "blaze-swap"}, {"file_name": "spark-dex_semantic_d3.json", "qdrant_collection_name": "spark-dex_semantic"}, {"file_name": "rain-dex_semantic_d3.json", "qdrant_collection_name": "rain-dex_semantic"}]
+
 EMBEDDING_SAVE_FILES = [
     {"file_name": "flare-network_simple_d2.json",
         "qdrant_collection_name": "flare-network"},
-    {"file_name": "blaze-swap_simple_d3.json", "qdrant_collection_name": "blaze-swap"}]
+    {"file_name": "blaze-swap_simple_d3.json", "qdrant_collection_name": "blaze-swap"}, {"file_name": "spark-dex_semantic_d3.json", "qdrant_collection_name": "spark-dex_semantic"}, {"file_name": "rain-dex_semantic_d3.json", "qdrant_collection_name": "rain-dex_semantic"}]
 
 # EMBEDDING_SAVE_FILES = [
 #     {"file_name": "blaze-swap_simple_d3.json", "qdrant_collection_name": "blaze-swap"}]

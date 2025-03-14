@@ -23,8 +23,9 @@ const RightSidebar = ({ isOpen, onToggle }: RightSidebarProps) => {
             onClick={onToggle}
             className="h-10 rounded-lg px-2 text-token-text-secondary hover:bg-token-sidebar-surface-secondary"
           >
-            <div className="flex text-sm bg-gray-300 text-black rounded px-2 py-2">
-              <ChevronLeft className="h-5 w-5" /> <p>Close Consensus mode</p>
+            <div className="flex text-xs bg-gray-300 text-black rounded px-2 py-2">
+              <ChevronLeft className="h-5 w-5" />{" "}
+              <p>Back to Agentic RAG Mode</p>
             </div>
           </button>
         </div>
